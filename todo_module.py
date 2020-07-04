@@ -34,7 +34,6 @@ class TodoApp:
 
     def delete_task(self):
         print("Which task do you wanna delete? ")
-        self.show_task_list()
         
         while True:
             dlt_task = str(input("-Type task name(Press 'q' to quit) : "))
@@ -50,7 +49,6 @@ class TodoApp:
 
     def edit_task(self):
         print("Which task do you wanna edit?")
-        self.show_task_list()
 
         while True:
             edt_task = str(input("-Type task name(Press 'q' to quit) : "))
@@ -97,7 +95,7 @@ class TodoApp:
     def show_task_list(self):
         task_names = list(self.task_list.keys())
         task_info = list(self.task_list.values())
-        print("-----------Task List-----------")
+        print("-----------[Task List]-----------")
         for i in range(len(task_names)):
             print(f"{i+1} | Name : {task_names[i]} | Date : {task_info[i][0]} | Tag : {task_info[i][1]}")
 
@@ -112,13 +110,22 @@ class TodoApp:
                 + "4. Exit")
             print("----.-----.-----.-----.-----.----")
             command = int(input("-Type a number : "))
+            print("")
 
             if command == 1:
                 self.add_task()
             elif command == 2:
-                self.delete_task()
+                if len(self.task_list) == 0:
+                    print("There are no tasks.")
+                else:
+                    self.show_task_list()
+                    self.delete_task()
             elif command == 3:
-                self.edit_task()
+                if len(self.task_list) == 0:
+                    print("There are no tasks.")
+                else:
+                    self.show_task_list()
+                    self.edit_task()
             else:
                 print("See you later!")
                 break
